@@ -1,0 +1,57 @@
+/*
+ * File: Pixiv.vue
+ * Project: router
+ * File Created: Friday, 22nd June 2018 3:54:10 pm
+ * Author: Ice-Hazymoon (imiku.me@gmail.com)
+ * -----
+ * Last Modified: Friday, 22nd June 2018 3:58:02 pm
+ * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
+ */
+<template>
+    <div class="pixiv">
+        <div class="title">
+            <div class="l">Pixiv <a href="https://www.pixiv.net/member.php?id=16126035"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="1950" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M972.8 716.8a51.2 51.2 0 0 0-51.2 51.2v102.4a51.2 51.2 0 0 1-51.2 51.2H51.2a51.2 51.2 0 0 0 0 102.4h819.2a153.6 153.6 0 0 0 153.6-153.6v-102.4a51.2 51.2 0 0 0-51.2-51.2zM204.8 716.8a51.2 51.2 0 0 0 51.2-51.2 358.4 358.4 0 0 1 358.4-358.4h81.408l-117.76 117.248A51.2 51.2 0 0 0 650.24 496.64l204.8-204.8a51.2 51.2 0 0 0 0-72.192l-204.8-204.8a51.2 51.2 0 0 0-72.192 72.192l117.76 117.76H614.4a460.8 460.8 0 0 0-460.8 460.8 51.2 51.2 0 0 0 51.2 51.2z" fill="" p-id="1951"></path></svg></a></div>
+            <div class="r">数据来自 Pixiv</div>
+        </div>
+    </div>
+</template>
+<script>
+export default {
+    
+}
+</script>
+<style lang="scss" scoped>
+.pixiv{
+    display: inline-block;
+    vertical-align: top;
+    width: 600px;
+    margin: 0 30px;
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.09);
+    .title{
+        font-size: 20px;
+        padding: 20px 0 20px 20px;
+        letter-spacing: 1px;
+        font-family: Arial;
+        border-bottom: 1px solid #eceff2;
+        svg{
+            width: 18px;
+            height: 18px;
+            margin-left: 5px;
+            fill: #2b2f32;
+        }
+        .l{
+            display: inline-block;
+        }
+        .r{
+            display: inline-block;
+            float: right;
+            line-height: 23px;
+            font-size: 14px;
+            color: rgb(158, 158, 158);
+            margin-right: 20px;
+        }
+    }
+}
+</style>

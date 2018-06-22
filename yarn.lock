@@ -1294,6 +1294,13 @@ aws4@^1.2.1, aws4@^1.6.0:
   version "1.7.0"
   resolved "http://r.cnpmjs.org/aws4/download/aws4-1.7.0.tgz#d4d0e9b9dbfca77bf08eeb0a8a471550fe39e289"
 
+axios@^0.18.0:
+  version "0.18.0"
+  resolved "http://r.cnpmjs.org/axios/download/axios-0.18.0.tgz#32d53e4851efdc0a11993b6cd000789d70c05102"
+  dependencies:
+    follow-redirects "^1.3.0"
+    is-buffer "^1.1.5"
+
 babel-code-frame@^6.22.0, babel-code-frame@^6.26.0:
   version "6.26.0"
   resolved "http://r.cnpmjs.org/babel-code-frame/download/babel-code-frame-6.26.0.tgz#63fd43f7dc1e3bb7ce35947db8fe369a3f58c74b"
@@ -3043,7 +3050,7 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.1"
     readable-stream "^2.0.4"
 
-follow-redirects@^1.0.0:
+follow-redirects@^1.0.0, follow-redirects@^1.3.0:
   version "1.5.0"
   resolved "http://r.cnpmjs.org/follow-redirects/download/follow-redirects-1.5.0.tgz#234f49cf770b7f35b40e790f636ceba0c3a0ab77"
   dependencies:
@@ -4817,6 +4824,10 @@ normalize-url@^1.4.0:
     query-string "^4.1.0"
     sort-keys "^1.0.0"
 
+normalize.css@^8.0.0:
+  version "8.0.0"
+  resolved "http://r.cnpmjs.org/normalize.css/download/normalize.css-8.0.0.tgz#14ac5e461612538a4ce9be90a7da23f86e718493"
+
 npm-bundled@^1.0.1:
   version "1.0.3"
   resolved "http://r.cnpmjs.org/npm-bundled/download/npm-bundled-1.0.3.tgz#7e71703d973af3370a9591bafe3a63aca0be2308"
@@ -5056,6 +5067,10 @@ p-try@^1.0.0:
 pako@~1.0.5:
   version "1.0.6"
   resolved "http://r.cnpmjs.org/pako/download/pako-1.0.6.tgz#0101211baa70c4bca4a0f63f2206e97b7dfaf258"
+
+pangu@^3.3.0:
+  version "3.3.0"
+  resolved "http://r.cnpmjs.org/pangu/download/pangu-3.3.0.tgz#e8ca9711b6ae49b609441528406030dae2e32e68"
 
 parallel-transform@^1.1.0:
   version "1.1.0"
@@ -6459,6 +6474,10 @@ stealthy-require@^1.1.0:
   version "1.1.1"
   resolved "http://r.cnpmjs.org/stealthy-require/download/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
 
+store@^2.0.12:
+  version "2.0.12"
+  resolved "http://r.cnpmjs.org/store/download/store-2.0.12.tgz#8c534e2a0b831f72b75fc5f1119857c44ef5d593"
+
 stream-browserify@^2.0.1:
   version "2.0.1"
   resolved "http://r.cnpmjs.org/stream-browserify/download/stream-browserify-2.0.1.tgz#66266ee5f9bdb9940a4e4514cafb43bb71e5c9db"
@@ -6995,6 +7014,10 @@ vm-browserify@0.0.4:
   resolved "http://r.cnpmjs.org/vm-browserify/download/vm-browserify-0.0.4.tgz#5d7ea45bbef9e4a6ff65f95438e0a87c357d5a73"
   dependencies:
     indexof "0.0.1"
+
+vue-aplayer@^1.6.0:
+  version "1.6.0"
+  resolved "http://r.cnpmjs.org/vue-aplayer/download/vue-aplayer-1.6.0.tgz#76c828e9a4fc68d1d9e9d99611b838025c69ddf5"
 
 vue-eslint-parser@^2.0.3:
   version "2.0.3"

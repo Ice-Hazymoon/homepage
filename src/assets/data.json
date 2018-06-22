@@ -1,0 +1,36 @@
+{
+    "title": "Ice-Hazymoon",
+    "keyword": ["关键字", "关键字2"],
+    "author": "Ice-Hazymoon",
+    "link": "https://i.imiku.me",
+    "githubName": "Ice-Hazymoon",
+    "blogRssLink": "https://imiku.me/rss",
+    "avatar": "./images/avatar.jpg",
+    "logo": "./images/logo.png",
+    "email": "imiku.me@gmail.com",
+    "qrcode": "./images/qrcode.png",
+    "searchUrl": "https://imiku.me/?s={{keyword}}",
+    "navLinks": [{
+        "name": "Home",
+        "link": "./"
+    }, {
+        "name": "GitHub",
+        "link": "https://github.com/Ice-Hazymoon"
+    }, {
+        "name": "About",
+        "link": "https://i.imiku.me"
+    }, {
+        "name": "Blog",
+        "link": "https://imiku.me"
+    }, {
+        "name": "Status",
+        "link": "https://status.imiku.me/"
+    }],
+    "functionSwitch": [{
+        "posts": true,
+        "bilibili": true,
+        "pixiv": true,
+        "music": true,
+        "friends": true
+    }]
+}

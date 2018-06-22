@@ -1,21 +1,43 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
-import About from "./views/About.vue";
+import Posts from "./views/Posts.vue";
+import Bangumi from "./views/Bangumi.vue";
+import Pixiv from './views/Pixiv.vue'
+import Music from './views/Music.vue'
+import Friends from './views/Friends.vue'
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: "/",
-      name: "home",
-      component: Home
+      path: "/home",
+      name: "Posts",
+      component: Posts
     },
     {
-      path: "/about",
-      name: "about",
-      component: About
+      path: "/bangumi",
+      name: "Bangumi",
+      component: Bangumi
+    },
+    {
+      path: "/pixiv",
+      name: "Pixiv",
+      component: Pixiv
+    },
+    {
+      path: "/music",
+      name: "Music",
+      component: Music
+    },
+    {
+      path: "/friends",
+      name: "Friends",
+      component: Friends
+    },
+    {
+      path: "*",
+      redirect: '/home'
     }
   ]
 });
