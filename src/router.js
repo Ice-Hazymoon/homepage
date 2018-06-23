@@ -1,42 +1,45 @@
-import Vue from "vue";
-import Router from "vue-router";
-import Posts from "./views/Posts.vue";
-import Bangumi from "./views/Bangumi.vue";
-import Pixiv from './views/Pixiv.vue'
-import Music from './views/Music.vue'
-import Friends from './views/Friends.vue'
+/* eslint-disable */
+
+import Vue from 'vue';
+import Router from 'vue-router';
+
+const Posts = () => import('./views/Posts.vue');
+const Bangumi = () => import('./views/Bangumi.vue');
+const Pixiv = () => import('./views/Pixiv.vue');
+const Music = () => import('./views/Music.vue');
+const Friends = () => import('./views/Friends.vue');
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: "/home",
-      name: "Posts",
+      path: '/home',
+      name: 'Posts',
       component: Posts
     },
     {
-      path: "/bangumi",
-      name: "Bangumi",
+      path: '/bangumi',
+      name: 'Bangumi',
       component: Bangumi
     },
     {
-      path: "/pixiv",
-      name: "Pixiv",
+      path: '/pixiv',
+      name: 'Pixiv',
       component: Pixiv
     },
     {
-      path: "/music",
-      name: "Music",
+      path: '/music',
+      name: 'Music',
       component: Music
     },
     {
-      path: "/friends",
-      name: "Friends",
+      path: '/friends',
+      name: 'Friends',
       component: Friends
     },
     {
-      path: "*",
+      path: '*',
       redirect: '/home'
     }
   ]

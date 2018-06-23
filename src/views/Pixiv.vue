@@ -4,7 +4,7 @@
  * File Created: Friday, 22nd June 2018 3:54:10 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Friday, 22nd June 2018 3:58:02 pm
+ * Last Modified: Saturday, 23rd June 2018 10:59:47 am
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 <template>
@@ -13,11 +13,37 @@
             <div class="l">Pixiv <a href="https://www.pixiv.net/member.php?id=16126035"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="1950" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M972.8 716.8a51.2 51.2 0 0 0-51.2 51.2v102.4a51.2 51.2 0 0 1-51.2 51.2H51.2a51.2 51.2 0 0 0 0 102.4h819.2a153.6 153.6 0 0 0 153.6-153.6v-102.4a51.2 51.2 0 0 0-51.2-51.2zM204.8 716.8a51.2 51.2 0 0 0 51.2-51.2 358.4 358.4 0 0 1 358.4-358.4h81.408l-117.76 117.248A51.2 51.2 0 0 0 650.24 496.64l204.8-204.8a51.2 51.2 0 0 0 0-72.192l-204.8-204.8a51.2 51.2 0 0 0-72.192 72.192l117.76 117.76H614.4a460.8 460.8 0 0 0-460.8 460.8 51.2 51.2 0 0 0 51.2 51.2z" fill="" p-id="1951"></path></svg></a></div>
             <div class="r">数据来自 Pixiv</div>
         </div>
+        <ul class="grid">
+            <div class="grid-sizer"></div>
+            <li class="grid-item" v-for="(item, index) in mikuData.pixiv" :key="index">
+                <img data-action="zoom"
+                :data-zoom-target="delHttps(item.meta_single_page.original_image_url)" 
+                :src="delHttps(item.image_urls.square_medium)" 
+                :alt="item.title">
+                <div class="info"></div>
+            </li>
+        </ul>
     </div>
 </template>
 <script>
+// import Masonry from 'masonry-layout';
+// import imagesLoaded from 'imagesloaded';
+// import mediumZoom from 'medium-zoom'
 export default {
-    
+    props: {
+        mikuData: {
+            type: Object,
+            default: {}
+        }
+    },
+    methods: {
+        delHttps(url){
+            if(url) return 'https://api.pixiv.moe/v2/image/' + url.replace(/https:\/\//, '')
+        }
+    },
+    mounted(){
+        // mediumZoom(document.querySelectorAll('[data-action="zoom"]'))
+    }
 }
 </script>
 <style lang="scss" scoped>
@@ -51,6 +77,27 @@ export default {
             font-size: 14px;
             color: rgb(158, 158, 158);
             margin-right: 20px;
+        }
+    }
+    .grid{
+        width: 100%;
+        .grid-sizer,.grid-item{
+            width: (100% / 3);
+        }
+        .grid-item{
+            padding: 5px;
+            box-sizing: border-box;
+            position: relative;
+            float: left;
+            img{
+                max-width: 100%;
+                display: block;
+            }
+        }
+        &:after{
+            content: '';
+            display: block;
+            clear: both;
         }
     }
 }
