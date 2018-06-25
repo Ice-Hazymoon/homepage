@@ -4,7 +4,7 @@
  * File Created: Thursday, 21st June 2018 2:59:26 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Thursday, 21st June 2018 4:54:15 pm
+ * Last Modified: Monday, 25th June 2018 3:54:14 pm
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
  * Copyright 2017 - 2018
@@ -17,9 +17,15 @@
 body{
     font-family: -apple-system,sans-serif,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue";
     background-color: rgb(129, 200, 252);
+    overflow-x: hidden;
 }
 ul,li{
     margin: 0;
     padding: 0;
     list-style: none;
+}
+a{
+    color: inherit;
+    cursor: alias;
+    text-decoration: none;
 }

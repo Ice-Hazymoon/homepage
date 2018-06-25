@@ -17,7 +17,8 @@
     "store": "^2.0.12",
     "vue": "^2.5.16",
     "vue-aplayer": "^1.6.0",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "zooming": "^2.1.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-rc.3",

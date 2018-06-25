@@ -7398,3 +7398,7 @@ yorkie@^1.0.3:
     is-ci "^1.0.10"
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
+
+zooming@^2.1.0:
+  version "2.1.0"
+  resolved "http://r.cnpmjs.org/zooming/download/zooming-2.1.0.tgz#a65c2a955a1af55959e56e9294e992bb28bf6c2e"
