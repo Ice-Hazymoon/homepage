@@ -1,12 +1,21 @@
+/*
+ * File: App.vue
+ * Project: router
+ * File Created: Wednesday, 20th June 2018 3:30:35 pm
+ * Author: Ice-Hazymoon (imiku.me@gmail.com)
+ * -----
+ * Last Modified: Tuesday, 26th June 2018 11:10:48 am
+ * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
+ */
 <template>
     <div id="app">
         <Nav></Nav>
         <div class="main">
             <InfoCard></InfoCard>
             <keep-alive>
-                <router-view v-if="load" :mikuData="mikuData"></router-view>
+                <router-view></router-view>
             </keep-alive>
-            <Github v-if="load" :githubRepos="mikuData.githubRepos"></Github>
+            <Github></Github>
         </div>
     </div>
 </template>
@@ -17,83 +26,11 @@ import InfoCard from './components/InfoCard';
 import Github from './components/Github';
 import config from './config.js';
 export default {
-    data(){
-        return {
-            mikuData: {},
-            load: false
-        }
-    },
     components: {
         Nav,
         InfoCard,
         Github
     },
-    methods: {
-        getMusicData(mD, callback){
-            let _this = this;
-            let musicList = new Array();
-            let getMusicSrcFun = new Array();
-            mD.forEach((el, index) => {
-                let fun = function(){
-                    return _this.$http.get('https://api.imjad.cn/cloudmusic/?type=song&id='+el.id);
-                }
-                let d = {
-                    title: el.name,
-                    artist: el.ar[0].name,
-                    src: null,
-                    pic: el.al.picUrl
-                }
-                musicList.push(d)
-                getMusicSrcFun.push(this.returnData('https://api.imjad.cn/cloudmusic/?type=song&id='+el.id))
-            });
-
-            this.$http.all(getMusicSrcFun).then(e=>{
-                musicList.forEach((el, index)=>{
-                    el.src = e[index].data.data[0].url
-                })
-                this.mikuData.music = musicList;
-            })
-        },
-        returnData(url){
-            return this.$http.get(url);
-        },
-        handleData(){
-            let _this = this;
-            let date = new Date();
-            date.setDate(date.getDate()+1);
-
-            let mikuData = new Object();
-
-            this.$http.all([
-                this.returnData('https://api.github.com/users/Ice-Hazymoon/repos'),
-                this.returnData('https://imiku.me/wp-json/wp/v2/posts?_embed'),
-                this.returnData('https://api.imjad.cn/bilibili/v2/?get=space&vmid=21851788&pagesize=200'),
-                this.returnData('https://api.imjad.cn/pixiv/v2/?type=favorite&id=16126035'),
-                this.returnData('https://api.imjad.cn/cloudmusic/?type=playlist&id=488684458')
-            ]).then(e=>{
-                mikuData.githubRepos = e[0].data;
-                mikuData.blogPost = e[1].data;
-                mikuData.bangumi = e[2].data.data.season.item;
-                mikuData.pixiv = e[3].data.illusts;
-                this.mikuData = mikuData;
-                this.mikuData.config = config;
-                this.getMusicData(e[4].data.playlist.tracks);
-                this.$store.set('mikuData', this.mikuData);
-                this.$store.set('mikuDate', date.getTime());
-                this.load = true;
-            })
-        }
-    },
-    mounted(){
-        let date = new Date().getTime();
-        let mikuDate = this.$store.get('mikuDate');
-        if(mikuDate === undefined || mikuDate<=date){
-            this.handleData();
-        }else{
-            this.mikuData = this.$store.get('mikuData');
-            this.load = true;
-        }
-    }
 };
 </script>
 

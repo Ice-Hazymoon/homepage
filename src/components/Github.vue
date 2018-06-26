@@ -11,8 +11,8 @@
 <template>
     <div class="github">
         <div class="title">GitHub <a href="https://github.com/Ice-Hazymoon"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="1950" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M972.8 716.8a51.2 51.2 0 0 0-51.2 51.2v102.4a51.2 51.2 0 0 1-51.2 51.2H51.2a51.2 51.2 0 0 0 0 102.4h819.2a153.6 153.6 0 0 0 153.6-153.6v-102.4a51.2 51.2 0 0 0-51.2-51.2zM204.8 716.8a51.2 51.2 0 0 0 51.2-51.2 358.4 358.4 0 0 1 358.4-358.4h81.408l-117.76 117.248A51.2 51.2 0 0 0 650.24 496.64l204.8-204.8a51.2 51.2 0 0 0 0-72.192l-204.8-204.8a51.2 51.2 0 0 0-72.192 72.192l117.76 117.76H614.4a460.8 460.8 0 0 0-460.8 460.8 51.2 51.2 0 0 0 51.2 51.2z" fill="" p-id="1951"></path></svg></a></div>
-        <ul class="list">
-            <li v-for="(item, index) in githubRepos" :key="index">
+        <ul class="list" v-if="loading">
+            <li v-for="(item, index) in data" :key="index">
                 <a class="name" :href="item.url" target="_blank">{{ item.name }}</a>
                 <div class="des">{{ item.description }}</div>
                 <div class="icon">
@@ -31,15 +31,25 @@
 </template>
 <script>
 export default {
-    props: {
-        githubRepos: {
-            type: Array,
-            default: {}
-        }
-    },
     data(){
         return {
-            
+            data: [],
+            loading: false
+        }
+    },
+    mounted(){
+        const d = this.$store.get('miku_github');
+        if(d){
+            this.data = d;
+            this.loading = true;
+        }else{
+            this.$http.get('https://api.github.com/users/Ice-Hazymoon/repos').then(e=>{
+                this.data = e.data;
+                this.$store.set('miku_github', this.data, new Date().getTime()+86400000);
+                this.loading = true;
+            }).catch(err=>{
+                alert('获取数据失败: '+err);
+            })
         }
     }
 }

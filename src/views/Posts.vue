@@ -4,17 +4,17 @@
  * File Created: Friday, 22nd June 2018 9:42:36 am
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Friday, 22nd June 2018 3:44:45 pm
+ * Last Modified: Tuesday, 26th June 2018 12:44:32 pm
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 <template>
     <div class="post">
         <div class="title">
             <div class="l">Posts <a href="https://imiku.me"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="1950" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M972.8 716.8a51.2 51.2 0 0 0-51.2 51.2v102.4a51.2 51.2 0 0 1-51.2 51.2H51.2a51.2 51.2 0 0 0 0 102.4h819.2a153.6 153.6 0 0 0 153.6-153.6v-102.4a51.2 51.2 0 0 0-51.2-51.2zM204.8 716.8a51.2 51.2 0 0 0 51.2-51.2 358.4 358.4 0 0 1 358.4-358.4h81.408l-117.76 117.248A51.2 51.2 0 0 0 650.24 496.64l204.8-204.8a51.2 51.2 0 0 0 0-72.192l-204.8-204.8a51.2 51.2 0 0 0-72.192 72.192l117.76 117.76H614.4a460.8 460.8 0 0 0-460.8 460.8 51.2 51.2 0 0 0 51.2 51.2z" fill="" p-id="1951"></path></svg></a></div>
-            <div class="r">最后更新于: {{ lastDate }}</div>
+            <div class="r" v-if="loading">最后更新于: {{ lastDate }}</div>
         </div>
-        <ul class="article-list">
-            <li class="article" v-for="(item, index) in mikuData.blogPost" :key="index">
+        <ul id="article" class="article-list" v-if="loading">
+            <li class="article" v-for="(item, index) in data" :key="index">
                 <div class="l">
                     <div class="article-title"><a :href="item.link" target="_blank" v-html="item.title.rendered"></a></div>
                     <div class="article-excerpt" v-html="item.excerpt.rendered"></div>
@@ -29,47 +29,49 @@
     </div>
 </template>
 <script>
-Date.prototype.Format = function (fmt) {  
-    var o = {
-        "M+": this.getMonth() + 1, //月份 
-        "d+": this.getDate(), //日 
-        "h+": this.getHours(), //小时 
-        "m+": this.getMinutes(), //分 
-        "s+": this.getSeconds(), //秒 
-        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-        "S": this.getMilliseconds() //毫秒 
-    };
-    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-    for (var k in o)
-    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-    return fmt;
-}
+ import dateFormat from '../assets/js/dateFormat.js';
+ Date.prototype.Format = dateFormat;
 
 export default {
-    props: {
-        data(){
-            
-        },
-        mikuData: {
-            type: Object,
-            default: []
+    data(){
+        return {
+            data: [],
+            loading: false
         }
     },
     methods: {
         getMediaLink(index){
-            if(!this.mikuData.blogPost[index]._embedded["wp:featuredmedia"]){
+            if(!this.data[index]._embedded["wp:featuredmedia"]){
                 return 'https://myblogpic.b0.upaiyun.com/2017/06/2017061621131297.jpg'
             }else{
-                return this.mikuData.blogPost[index]._embedded["wp:featuredmedia"][0].source_url
+                return this.data[index]._embedded["wp:featuredmedia"][0].source_url
             }
         }
     },
     mounted(){
-        
+        const d = this.$store.get('miku_posts');
+        if(d){
+            this.data = d;
+            this.loading = true;
+            this.$nextTick(()=>{
+                this.$pangu.spacingElementById('article');
+            })
+        }else{
+            this.$http.get('https://imiku.me/wp-json/wp/v2/posts?_embed').then(e=>{
+                this.data = e.data;
+                this.$store.set('miku_posts', e.data, new Date().getTime()+86400000);
+                this.loading = true;
+                this.$nextTick(()=>{
+                    this.$pangu.spacingElementById('article');
+                })
+            }).catch(err=>{
+                alert('获取数据失败: '+err);
+            })
+        }
     },
     computed: {
         lastDate(){
-            let date = new Date(this.mikuData.blogPost[0].date)
+            let date = new Date(this.data[0].date)
             return date.Format("yyyy-MM-dd hh:mm:ss");
         }
     }

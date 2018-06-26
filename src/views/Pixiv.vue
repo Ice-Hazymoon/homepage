@@ -4,7 +4,7 @@
  * File Created: Friday, 22nd June 2018 3:54:10 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Monday, 25th June 2018 2:18:14 pm
+ * Last Modified: Tuesday, 26th June 2018 2:49:29 pm
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 <template>
@@ -26,7 +26,7 @@
             <div class="r">数据来自 Pixiv</div>
         </div>
         <ul class="grid">
-            <li class="grid-item" v-for="(item, index) in mikuData.pixiv" :key="index">
+            <li class="grid-item" v-for="(item, index) in data" :key="index">
                 <img data-action="zoom" 
                 class="a" 
                 :data-zooming-width="item.width" 
@@ -58,62 +58,55 @@
     </div>
 </template>
 <script>
-// import Masonry from 'masonry-layout';
-// import imagesLoaded from 'imagesloaded';
-// import mediumZoom from 'medium-zoom'
-Date.prototype.Format = function (fmt) {  
-    var o = {
-        "M+": this.getMonth() + 1, //月份 
-        "d+": this.getDate(), //日 
-        "h+": this.getHours(), //小时 
-        "m+": this.getMinutes(), //分 
-        "s+": this.getSeconds(), //秒 
-        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-        "S": this.getMilliseconds() //毫秒 
-    };
-    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-    for (var k in o)
-    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-    return fmt;
-}
+import dateFormat from '../assets/js/dateFormat.js';
+Date.prototype.Format = dateFormat;
+
 import Zooming from 'zooming';
 export default {
     data(){
         return {
             loading: false,
-            windowH: 0
-        }
-    },
-    props: {
-        mikuData: {
-            type: Object,
-            default: {}
+            data: null
         }
     },
     methods: {
         delHttps(url){
-            if(url) return 'https://api.pixiv.moe/v2/image/' + url.replace(/https:\/\//, '')
+            if(url) return 'https://api.pixiv.moe/v2/image/' + url.replace(/https:\/\//, '');
         },
         handleDate(d){
             if(d){
                 let date = new Date(d)
                 return date.Format("yyyy-MM-dd");
             }
+        },
+        handleImg(){
+            const zoomingLight = new Zooming({
+                bgColor: '#fff',
+                bgOpacity: .8,
+                scaleBase: .8,
+                onImageLoading: ()=>{
+                    this.loading = true;
+                },
+                onImageLoaded: (e)=>{
+                    this.loading = false;
+                }
+            }).listen('[data-action="zoom"]')
         }
     },
     mounted(){
-        const zoomingLight = new Zooming({
-            bgColor: '#fff',
-            bgOpacity: .8,
-            scaleBase: .8,
-            onImageLoading: ()=>{
-                this.loading = true;
-            },
-            onImageLoaded: (e)=>{
-                this.loading = false;
-            }
-        }).listen('[data-action="zoom"]')
-        // mediumZoom(document.querySelectorAll('[data-action="zoom"]'))
+        const d = this.$store.get('miku_pixiv');
+        if(d){
+            this.data = d;
+            this.$nextTick(this.handleImg);
+        }else{
+            this.$http.get('https://api.imjad.cn/pixiv/v2/?type=favorite&id=16126035').then(e=>{
+                this.data = e.data.illusts;
+                this.$store.set('miku_pixiv', e.data.illusts, new Date().getTime()+86400000);
+                this.$nextTick(this.handleImg);
+            }).catch(err=>{
+                alert('获取数据失败: '+err);
+            })
+        }
     }
 }
 </script>
@@ -148,7 +141,6 @@ export default {
         top: 0;
         width: 100%;
         height: 100%;
-        // filter: blur(10px);
         background-color: #fff;
         .spinner {
             position: relative;
