@@ -7,14 +7,17 @@ import axios from 'axios';
 import store from 'store';
 import pangu from 'pangu';
 import router from "./router";
+import VModal from 'vue-js-modal';
+Vue.use(VModal, { dynamic: true });
 Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
 Vue.prototype.$store = store;
 Vue.prototype.$pangu = pangu;
 
-var namespace = 'expire_mixin'
+// expirePlugin
+const namespace = 'expire_mixin'
 function expirePlugin() {
-	var expirations = this.createStore(this.storage, null, this._namespacePrefix+namespace)
+	let expirations = this.createStore(this.storage, null, this._namespacePrefix+namespace)
 	
 	return {
 		set: expire_set,
@@ -50,17 +53,17 @@ function expirePlugin() {
 	}
 	
 	function removeExpiredKeys(_) {
-		var keys = []
+		let keys = []
 		this.each(function(val, key) {
 			keys.push(key)
 		})
-		for (var i=0; i<keys.length; i++) {
+		for (let i=0; i<keys.length; i++) {
 			_checkExpiration.call(this, keys[i])
 		}
 	}
 	
 	function _checkExpiration(key) {
-		var expiration = expirations.get(key, Number.MAX_VALUE)
+		let expiration = expirations.get(key, Number.MAX_VALUE)
 		if (expiration <= new Date().getTime()) {
 			this.raw.remove(key)
 			expirations.remove(key)
@@ -68,7 +71,6 @@ function expirePlugin() {
 	}
 	
 }
-
 store.addPlugin(expirePlugin);
 
 new Vue({

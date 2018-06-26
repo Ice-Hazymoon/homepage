@@ -4,7 +4,7 @@
  * File Created: Thursday, 21st June 2018 4:36:39 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Friday, 22nd June 2018 9:48:31 am
+ * Last Modified: Tuesday, 26th June 2018 5:07:21 pm
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
  * Copyright 2017 - 2018
@@ -18,7 +18,7 @@
         <div class="post">Front-end developert</div>
         <div class="adder">Yunnan China</div>
         <div class="button">
-            <div class="github">GitHub</div>
+            <div class="github"><a target="_blank" href="https://github.com/Ice-Hazymoon">GitHub</a></div>
             <div class="conect">Conect</div>
         </div>
     </div>

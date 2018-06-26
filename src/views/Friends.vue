@@ -4,7 +4,7 @@
  * File Created: Friday, 22nd June 2018 3:56:14 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Tuesday, 26th June 2018 3:18:05 pm
+ * Last Modified: Tuesday, 26th June 2018 6:11:40 pm
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 <template>
@@ -31,14 +31,11 @@
     </div>
 </template>
 <script>
-
-(CSS.paintWorklet || paintWorklet).addModule('http://hazymoon-public.b0.upaiyun.com/test/smooth-corners.js')
-
 export default {
     data(){
         return {
             data: [],
-            loading: false
+            loading: false,
         }
     },
     methods: {
@@ -56,7 +53,7 @@ export default {
             this.data = d;
             this.loading = true;
         }else{
-            this.$http.get('https://imiku.me/api/links.json').then(e=>{
+            this.$http.get('https://imiku.me/api/links.php').then(e=>{
                 this.data = e.data;
                 this.$store.set('miku_friends', this.data, new Date().getTime()+86400000);
                 this.loading = true;
