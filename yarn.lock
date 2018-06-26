@@ -5829,6 +5829,10 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
+reflect-metadata@^0.1.10:
+  version "0.1.12"
+  resolved "http://registry.npm.taobao.org/reflect-metadata/download/reflect-metadata-0.1.12.tgz#311bf0c6b63cd782f228a81abe146a2bfa9c56f2"
+
 regenerate-unicode-properties@^7.0.0:
   version "7.0.0"
   resolved "http://r.cnpmjs.org/regenerate-unicode-properties/download/regenerate-unicode-properties-7.0.0.tgz#107405afcc4a190ec5ed450ecaa00ed0cafa7a4c"
@@ -7066,6 +7070,10 @@ vue-aplayer@^1.6.0:
   version "1.6.0"
   resolved "http://r.cnpmjs.org/vue-aplayer/download/vue-aplayer-1.6.0.tgz#76c828e9a4fc68d1d9e9d99611b838025c69ddf5"
 
+vue-class-component@^6.0.0, vue-class-component@^6.1.0:
+  version "6.2.0"
+  resolved "http://registry.npm.taobao.org/vue-class-component/download/vue-class-component-6.2.0.tgz#7adb1daa9a868c75f30f97f33f4f1b94aee62089"
+
 vue-eslint-parser@^2.0.3:
   version "2.0.3"
   resolved "http://r.cnpmjs.org/vue-eslint-parser/download/vue-eslint-parser-2.0.3.tgz#c268c96c6d94cfe3d938a5f7593959b0ca3360d1"
@@ -7096,6 +7104,21 @@ vue-loader@^15.2.0:
     loader-utils "^1.1.0"
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
+
+vue-loading-template@^1.2.0:
+  version "1.2.0"
+  resolved "http://registry.npm.taobao.org/vue-loading-template/download/vue-loading-template-1.2.0.tgz#ec75746f73004a6f994992007b286ee9b1b9846c"
+  dependencies:
+    vue "^2.5.16"
+    vue-class-component "^6.0.0"
+    vue-property-decorator "^6.0.0"
+
+vue-property-decorator@^6.0.0:
+  version "6.1.0"
+  resolved "http://registry.npm.taobao.org/vue-property-decorator/download/vue-property-decorator-6.1.0.tgz#ef97bcc1bfe794ec060133ca04a5aca02e808828"
+  dependencies:
+    reflect-metadata "^0.1.10"
+    vue-class-component "^6.1.0"
 
 vue-router@^3.0.1:
   version "3.0.1"

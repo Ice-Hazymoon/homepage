@@ -4,13 +4,13 @@
  * File Created: Friday, 22nd June 2018 3:54:10 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Tuesday, 26th June 2018 2:49:29 pm
+ * Last Modified: Tuesday, 26th June 2018 9:18:16 pm
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 <template>
     <div class="pixiv">
         <transition name="img-loading">
-            <div class="img-loading" v-show="loading">
+            <div class="img-loading" v-show="loadImg" @click="loadImg = false">
                 <div class="spinner">
                     <div class="rect1"></div>
                     <div class="rect2"></div>
@@ -25,7 +25,8 @@
             <div class="l">Pixiv <a href="https://www.pixiv.net/member.php?id=16126035"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="1950" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M972.8 716.8a51.2 51.2 0 0 0-51.2 51.2v102.4a51.2 51.2 0 0 1-51.2 51.2H51.2a51.2 51.2 0 0 0 0 102.4h819.2a153.6 153.6 0 0 0 153.6-153.6v-102.4a51.2 51.2 0 0 0-51.2-51.2zM204.8 716.8a51.2 51.2 0 0 0 51.2-51.2 358.4 358.4 0 0 1 358.4-358.4h81.408l-117.76 117.248A51.2 51.2 0 0 0 650.24 496.64l204.8-204.8a51.2 51.2 0 0 0 0-72.192l-204.8-204.8a51.2 51.2 0 0 0-72.192 72.192l117.76 117.76H614.4a460.8 460.8 0 0 0-460.8 460.8 51.2 51.2 0 0 0 51.2 51.2z" fill="" p-id="1951"></path></svg></a></div>
             <div class="r">数据来自 Pixiv</div>
         </div>
-        <ul class="grid">
+        <vue-loading v-if="!loading" class="loading" type="spiningDubbles" color="#38b7ea" :size="{ width: '50px', height: '50px' }"></vue-loading>
+        <ul class="grid" v-if="loading">
             <li class="grid-item" v-for="(item, index) in data" :key="index">
                 <img data-action="zoom" 
                 class="a" 
@@ -65,8 +66,9 @@ import Zooming from 'zooming';
 export default {
     data(){
         return {
-            loading: false,
-            data: null
+            loadImg: false,
+            data: null,
+            loading: false
         }
     },
     methods: {
@@ -85,10 +87,10 @@ export default {
                 bgOpacity: .8,
                 scaleBase: .8,
                 onImageLoading: ()=>{
-                    this.loading = true;
+                    this.loadImg = true;
                 },
                 onImageLoaded: (e)=>{
-                    this.loading = false;
+                    this.loadImg = false;
                 }
             }).listen('[data-action="zoom"]')
         }
@@ -98,11 +100,13 @@ export default {
         if(d){
             this.data = d;
             this.$nextTick(this.handleImg);
+            this.loading = true;
         }else{
             this.$http.get('https://api.imjad.cn/pixiv/v2/?type=favorite&id=16126035').then(e=>{
                 this.data = e.data.illusts;
                 this.$store.set('miku_pixiv', e.data.illusts, new Date().getTime()+86400000);
                 this.$nextTick(this.handleImg);
+                this.loading = true;
             }).catch(err=>{
                 alert('获取数据失败: '+err);
             })
@@ -179,6 +183,9 @@ export default {
             margin-top: 20px;
             letter-spacing: 1.5px;
         }
+    }
+    .loading{
+        margin: 40px auto;
     }
     .title{
         font-size: 20px;

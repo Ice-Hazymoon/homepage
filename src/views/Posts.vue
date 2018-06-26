@@ -4,7 +4,7 @@
  * File Created: Friday, 22nd June 2018 9:42:36 am
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Tuesday, 26th June 2018 5:51:22 pm
+ * Last Modified: Tuesday, 26th June 2018 9:54:49 pm
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 <template>
@@ -14,6 +14,7 @@
             <div class="l">Posts <a href="https://imiku.me"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="1950" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M972.8 716.8a51.2 51.2 0 0 0-51.2 51.2v102.4a51.2 51.2 0 0 1-51.2 51.2H51.2a51.2 51.2 0 0 0 0 102.4h819.2a153.6 153.6 0 0 0 153.6-153.6v-102.4a51.2 51.2 0 0 0-51.2-51.2zM204.8 716.8a51.2 51.2 0 0 0 51.2-51.2 358.4 358.4 0 0 1 358.4-358.4h81.408l-117.76 117.248A51.2 51.2 0 0 0 650.24 496.64l204.8-204.8a51.2 51.2 0 0 0 0-72.192l-204.8-204.8a51.2 51.2 0 0 0-72.192 72.192l117.76 117.76H614.4a460.8 460.8 0 0 0-460.8 460.8 51.2 51.2 0 0 0 51.2 51.2z" fill="" p-id="1951"></path></svg></a></div>
             <div class="r" v-if="loading">最后更新于: {{ lastDate }}</div>
         </div>
+        <vue-loading v-if="!loading" class="loading" type="spiningDubbles" color="#38b7ea" :size="{ width: '50px', height: '50px' }"></vue-loading>
         <ul id="article" class="article-list" v-if="loading">
             <li class="article" v-for="(item, index) in data" :key="index">
                 <div class="l">
@@ -62,8 +63,6 @@ export default {
             },{
                 draggable: true
             })
-
-            // this.$modal.show('post', {content: e.content.rendered})
         }
     },
     mounted(){
@@ -127,6 +126,9 @@ export default {
             color: rgb(158, 158, 158);
             margin-right: 20px;
         }
+    }
+    .loading{
+        margin: 40px auto;
     }
     ul{
         padding: 30px 35px;

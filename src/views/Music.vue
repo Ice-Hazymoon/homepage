@@ -4,7 +4,7 @@
  * File Created: Friday, 22nd June 2018 3:56:00 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Tuesday, 26th June 2018 2:36:38 pm
+ * Last Modified: Tuesday, 26th June 2018 9:24:09 pm
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 <template>
@@ -14,7 +14,8 @@
             <div class="r">数据来自 网易云音乐</div>
         </div>
         <div class="play">
-            <aplayer v-if="playerLoad" showLrc autoplay :music="musicList[0]" :list="musicList" :shuffle="true" :mutex="true" :theme="'rgb(56, 183, 234)'"/>
+            <vue-loading v-if="!playerLoad" class="loading" type="spiningDubbles" color="#38b7ea" :size="{ width: '50px', height: '50px' }"></vue-loading>   
+            <aplayer v-if="playerLoad" showLrc :music="musicList[0]" :list="musicList" :shuffle="true" :mutex="true" :theme="'rgb(56, 183, 234)'"/>
         </div>
     </div>
 </template>
@@ -39,11 +40,6 @@ export default {
                     this.playerLoad = true;
                 })
             })
-            // this.musicList.forEach((value, index)=>{
-            //     this.$http.get('https://api.imjad.cn/cloudmusic/?type=lyric&id='+value.id).then(e=>{
-            //         this.musicList[index].lrc = e.data.lrc.lyric;
-            //     })
-            // })
         }
     },
     mounted(){
@@ -65,29 +61,6 @@ export default {
                 })
                 this.getLrc();
             })
-
-
-            // this.$http.get('https://api.imjad.cn/cloudmusic/?type=playlist&id=488684458').then(e=>{
-            //     console.log('start')
-            //     let requests = e.data.playlist.tracks.map((value, index) => {
-            //         this.musicList.push({
-            //             id: value.id,
-            //             title: value.name,
-            //             artist: value.ar[0].name,
-            //             src: 'https://api.imjad.cn/cloudmusic/?type=song&raw=true&id='+value.id,
-            //             pic: value.al.picUrl,
-            //             lrc: null
-            //         });
-            //         return this.$http.get('https://api.imjad.cn/cloudmusic/?type=lyric&id='+value.id)
-            //     })
-            //     this.$http.all(requests).then(e=>{
-            //         e.forEach((el, index) => {
-            //             this.musicList[index].lrc = el.data.lrc.lyric;
-            //         });
-            //         this.playerLoad = true;
-            //         this.$store.set('miku_music', this.musicList, new Date().getTime()+86400000);
-            //     })
-            // })
         }
     },
     components: {
@@ -127,6 +100,9 @@ export default {
             color: rgb(158, 158, 158);
             margin-right: 20px;
         }
+    }
+    .loading{
+        margin: 40px auto;
     }
     .aplayer{
         margin: 0;
