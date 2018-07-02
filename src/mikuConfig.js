@@ -51,5 +51,5 @@ export default {
         music: true,
         friends: true
     },
-    home: 'friends' // 首页默认模块, 请务必选择已开启的模块
+    home: 'posts' // 首页默认模块, 请务必选择已开启的模块
 }
