@@ -9,7 +9,7 @@ cache:
   directories:
     - node_modules
 after_script:
-  - cp -f CNAME ./public/CNAME
+  - cp -f CNAME ./dist/CNAME
   - cd ./dist
   - git init
   - git config user.name "Ice-Hazymoon"
