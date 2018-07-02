@@ -4,7 +4,7 @@
  * File Created: Friday, 22nd June 2018 9:42:36 am
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Monday, 2nd July 2018 3:33:11 pm
+ * Last Modified: Monday, 2nd July 2018 5:16:08 pm
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 <template>
@@ -74,7 +74,7 @@ export default {
                 this.$pangu.spacingElementById('article');
             })
         }else{
-            this.$http.get(this.mikuConfig.blog+'/wp-json/wp/v2/posts?_embed').then(e=>{
+            this.$http.get(this.mikuConfig.blogUrl+'/wp-json/wp/v2/posts?_embed').then(e=>{
                 this.data = e.data;
                 this.$store.set('miku_posts', e.data, new Date().getTime()+86400000);
                 this.loading = true;
