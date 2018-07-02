@@ -16,4 +16,4 @@ after_script:
   - git config user.email "imiku.me@gmail.com"
   - git add .
   - git commit -m "automated build"
-  - git push --quiet --force https://${REPO_TOKEN}@github.com/Ice-Hazymoon/planet.git master:gh-pages
+  - git push --quiet --force https://${REPO_TOKEN}@github.com/Ice-Hazymoon/homepage.git master:gh-pages
