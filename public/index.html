@@ -6,39 +6,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>喵喵喵?</title>
-    <style>
-      .init-loading{
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        background-color: #fff;
-        z-index: 999;
-        overflow: hidden;
-        pointer-events: none;
-      }
-      .init-loading .text{
-        margin-top: 20px;
-        font-size: 20px;
-        letter-spacing: 1.5px;
-      }
-    </style>
   </head>
   <body>
     <noscript>
       <strong>We're sorry but router doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app">
-      <div class="init-loading">
-        <img src="../loading.gif" alt="">
-        <div class="text">少女祈祷中···</div>
-      </div>
-    </div>
+    <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
 </html>

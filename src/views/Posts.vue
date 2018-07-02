@@ -4,14 +4,14 @@
  * File Created: Friday, 22nd June 2018 9:42:36 am
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Tuesday, 26th June 2018 9:54:49 pm
+ * Last Modified: Monday, 2nd July 2018 3:33:11 pm
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 <template>
     <div class="post">
         <modals-container transitio="scale"/>
         <div class="title">
-            <div class="l">Posts <a href="https://imiku.me"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="1950" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M972.8 716.8a51.2 51.2 0 0 0-51.2 51.2v102.4a51.2 51.2 0 0 1-51.2 51.2H51.2a51.2 51.2 0 0 0 0 102.4h819.2a153.6 153.6 0 0 0 153.6-153.6v-102.4a51.2 51.2 0 0 0-51.2-51.2zM204.8 716.8a51.2 51.2 0 0 0 51.2-51.2 358.4 358.4 0 0 1 358.4-358.4h81.408l-117.76 117.248A51.2 51.2 0 0 0 650.24 496.64l204.8-204.8a51.2 51.2 0 0 0 0-72.192l-204.8-204.8a51.2 51.2 0 0 0-72.192 72.192l117.76 117.76H614.4a460.8 460.8 0 0 0-460.8 460.8 51.2 51.2 0 0 0 51.2 51.2z" fill="" p-id="1951"></path></svg></a></div>
+            <div class="l">Posts <a :href="mikuConfig.blogUrl"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="1950" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M972.8 716.8a51.2 51.2 0 0 0-51.2 51.2v102.4a51.2 51.2 0 0 1-51.2 51.2H51.2a51.2 51.2 0 0 0 0 102.4h819.2a153.6 153.6 0 0 0 153.6-153.6v-102.4a51.2 51.2 0 0 0-51.2-51.2zM204.8 716.8a51.2 51.2 0 0 0 51.2-51.2 358.4 358.4 0 0 1 358.4-358.4h81.408l-117.76 117.248A51.2 51.2 0 0 0 650.24 496.64l204.8-204.8a51.2 51.2 0 0 0 0-72.192l-204.8-204.8a51.2 51.2 0 0 0-72.192 72.192l117.76 117.76H614.4a460.8 460.8 0 0 0-460.8 460.8 51.2 51.2 0 0 0 51.2 51.2z" fill="" p-id="1951"></path></svg></a></div>
             <div class="r" v-if="loading">最后更新于: {{ lastDate }}</div>
         </div>
         <vue-loading v-if="!loading" class="loading" type="spiningDubbles" color="#38b7ea" :size="{ width: '50px', height: '50px' }"></vue-loading>
@@ -45,7 +45,7 @@ export default {
     methods: {
         getMediaLink(index){
             if(!this.data[index]._embedded["wp:featuredmedia"]){
-                return 'https://myblogpic.b0.upaiyun.com/2017/06/2017061621131297.jpg'
+                return this.mikuConfig.defaultCover
             }else{
                 return this.data[index]._embedded["wp:featuredmedia"][0].source_url
             }
@@ -74,7 +74,7 @@ export default {
                 this.$pangu.spacingElementById('article');
             })
         }else{
-            this.$http.get('https://imiku.me/wp-json/wp/v2/posts?_embed').then(e=>{
+            this.$http.get(this.mikuConfig.blog+'/wp-json/wp/v2/posts?_embed').then(e=>{
                 this.data = e.data;
                 this.$store.set('miku_posts', e.data, new Date().getTime()+86400000);
                 this.loading = true;

@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - "8"
+script: 
+  - yarn build
+install:
+  - yarn install
+cache:
+  directories:
+    - node_modules
+after_script:
+  - cp -f CNAME ./public/CNAME
+  - cd ./dist
+  - git init
+  - git config user.name "Ice-Hazymoon"
+  - git config user.email "imiku.me@gmail.com"
+  - git add .
+  - git commit -m "automated build"
+  - git push --quiet --force https://${REPO_TOKEN}@github.com/Ice-Hazymoon/planet.git master:gh-pages

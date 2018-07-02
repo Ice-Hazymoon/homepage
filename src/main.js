@@ -8,15 +8,18 @@ import store from 'store';
 import pangu from 'pangu';
 import router from "./router";
 import VModal from 'vue-js-modal';
-import VueLoading from 'vue-loading-template'
+import VueLoading from 'vue-loading-template';
+import expirePlugin from './assets/js/expirePlugin';
+import mikuConfig from './mikuConfig';
+
 Vue.use(VueLoading);
 Vue.use(VModal, { dynamic: true });
 Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
 Vue.prototype.$store = store;
 Vue.prototype.$pangu = pangu;
+Vue.prototype.mikuConfig = mikuConfig;
 
-import expirePlugin from './assets/js/expirePlugin';
 store.addPlugin(expirePlugin);
 
 new Vue({

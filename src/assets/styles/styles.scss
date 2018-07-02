@@ -4,7 +4,7 @@
  * File Created: Thursday, 21st June 2018 2:59:26 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Tuesday, 26th June 2018 11:02:37 pm
+ * Last Modified: Monday, 2nd July 2018 4:46:03 pm
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
  * Copyright 2017 - 2018
@@ -19,6 +19,7 @@ body {
     font-family: -apple-system, sans-serif, "Microsoft YaHei", system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue";
     background-color: rgb(129, 200, 252);
     overflow-x: hidden;
+    padding-left: calc(100vw - 100%);
 }
 
 ul,
@@ -66,15 +67,6 @@ a {
         font-size: 20px;
         &:hover{
             box-shadow: 0 0 1px 1px #2b2f32;
-            button{
-                // color: #fff;
-            }
-            svg{
-                // fill: #fff;
-            }
-            &::after{
-                // width: 100%;
-            }
         }
         &::after{
             content: '';

@@ -2,6 +2,7 @@
 
 import Vue from 'vue';
 import Router from 'vue-router';
+import mikuConfig from './mikuConfig';
 
 const Posts = () => import('./views/Posts.vue');
 const Bangumi = () => import('./views/Bangumi.vue');
@@ -14,7 +15,7 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: '/home',
+      path: '/posts',
       name: 'Posts',
       component: Posts
     },
@@ -40,7 +41,7 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: '/home'
+      redirect: '/'+mikuConfig.home
     }
   ]
 });

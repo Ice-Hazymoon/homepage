@@ -4,19 +4,25 @@
  * File Created: Wednesday, 20th June 2018 3:30:35 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Tuesday, 26th June 2018 9:36:16 pm
+ * Last Modified: Monday, 2nd July 2018 4:30:49 pm
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 <template>
     <div id="app">
+        <transition name="init">
+            <div class="init-loading" v-if="init">
+                <img src="../src/assets/images/loading.gif" alt="">
+                <div class="text">少女祈祷中···</div>
+            </div>
+        </transition>
         <div class="bg"></div>
-        <Nav></Nav>
+        <Nav/>
         <div class="main">
-            <InfoCard></InfoCard>
+            <InfoCard/>
             <keep-alive>
-                <router-view></router-view>
+                <router-view/>
             </keep-alive>
-            <Github></Github>
+            <Github/>
         </div>
     </div>
 </template>
@@ -26,15 +32,53 @@ import Nav from './components/Nav';
 import InfoCard from './components/InfoCard';
 import Github from './components/Github';
 export default {
+    data(){
+        return {
+            init: true
+        }
+    },
     components: {
         Nav,
         InfoCard,
         Github
     },
+    mounted(){
+        setTimeout(()=>{
+            this.init = false;
+        },1500)
+    }
 };
 </script>
 
 <style lang="scss">
+    .init-leave{
+        opacity: 1;
+    }
+    .init-leave-active{
+        transition: .5s ease opacity;
+    }
+    .init-leave-to{
+        opacity: .0;
+    }
+    .init-loading{
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background-color: #fff;
+        z-index: 999;
+        overflow: hidden;
+      }
+      .init-loading .text{
+        margin-top: 20px;
+        font-size: 20px;
+        letter-spacing: 1.5px;
+      }
     .bg{
         position: fixed;
         left: 0;
