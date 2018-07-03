@@ -15,6 +15,7 @@ module.exports = {
           'allowTemplateLiterals': true
       }],
       'details': ['last'],
+      indent: ["error", 4]
   },
   parserOptions: {
       parser: 'babel-eslint'

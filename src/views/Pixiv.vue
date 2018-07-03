@@ -4,7 +4,7 @@
  * File Created: Friday, 22nd June 2018 3:54:10 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Monday, 2nd July 2018 3:12:58 pm
+ * Last Modified: Tuesday, 3rd July 2018 10:36:22 am
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 <template>
@@ -32,8 +32,8 @@
                 class="a" 
                 :data-zooming-width="item.width" 
                 :data-zooming-height="item.height" 
-                :data-original="delHttps(item.meta_single_page.original_image_url)" 
-                :src="delHttps(item.image_urls.square_medium)" 
+                :data-original="handleOriginalImage(item)" 
+                :src="handleImgUrl(item.image_urls.square_medium)" 
                 :alt="item.title">
                 <div class="info">
                     <div class="p-title">
@@ -72,15 +72,13 @@ export default {
         }
     },
     methods: {
-        delHttps(url){
-            if(url) return 'https://api.pixiv.moe/v2/image/' + url.replace(/https:\/\//, '');
-        },
         handleDate(d){
             if(d){
                 let date = new Date(d)
                 return date.Format("yyyy-MM-dd");
             }
         },
+        // 图片放大效果
         handleImg(){
             const zoomingLight = new Zooming({
                 bgColor: '#fff',
@@ -93,6 +91,25 @@ export default {
                     this.loadImg = false;
                 }
             }).listen('[data-action="zoom"]');
+        },
+        // 判断是多图还是单图, 如果是多图, 使用第一张图片作为大图
+        handleOriginalImage(item){
+            if(item.meta_single_page.original_image_url){
+                let imgUrl = item.meta_single_page.original_image_url;
+                return this.handleImgUrl(imgUrl);
+            }else{
+                let imgUrl = item.meta_pages[0].image_urls.large.replace(/c\/600x1200_90\//, '');
+                return this.handleImgUrl(imgUrl);
+            }
+        },
+        // 处理图片地址
+        handleImgUrl(url){
+            // 判断是否使用 pixiv.moe 作为图片代理, 如果使用了将删除 `https` 字段
+            if(this.mikuConfig.pixivProxy.indexOf('pixiv.moe') !== -1){
+                return this.mikuConfig.pixivProxy + url.replace(/https:\/\//, '');
+            }else{
+                return this.mikuConfig.pixivProxy.replace(/{url}/, url);
+            }
         }
     },
     created(){
@@ -110,6 +127,13 @@ export default {
             }).catch(err=>{
                 alert('获取数据失败: '+err);
             })
+        }
+    },
+    computed: {
+        proxy(){
+            if(this.mikuConfig.pixivProxy.indexOf('pixiv.moe') !== -1){
+                return ''
+            }
         }
     }
 }

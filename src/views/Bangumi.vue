@@ -4,7 +4,7 @@
  * File Created: Friday, 22nd June 2018 3:34:02 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Monday, 2nd July 2018 3:31:13 pm
+ * Last Modified: Tuesday, 3rd July 2018 10:40:35 am
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 <template>
@@ -16,7 +16,7 @@
         <vue-loading v-if="!loading" class="loading" type="spiningDubbles" color="#38b7ea" :size="{ width: '50px', height: '50px' }"></vue-loading>
         <ul v-if="loading" class="bangumi-list">
             <li v-for="(item, index) in data.item" :key="index">
-                <a :href="item.uri" target="_blank"><img class="cover" :src="'https://tools.imiku.me/api/imgProxy.php?url='+item.cover" :title="item.title"></a>
+                <a :href="item.uri" target="_blank"><img class="cover" :src="mikuConfig.bilibiliProxy.replace(/{url}/, item.cover)" :title="item.title"></a>
                 <div class="info"></div>
             </li>
         </ul>

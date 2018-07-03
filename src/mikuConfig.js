@@ -4,7 +4,7 @@
  * File Created: Monday, 2nd July 2018 3:15:56 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Monday, 2nd July 2018 4:15:24 pm
+ * Last Modified: Tuesday, 3rd July 2018 10:43:22 am
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 export default {
@@ -18,7 +18,8 @@ export default {
         telegram: 'hazymoon',
         email: 'imiku.me@gmail.com'
     },
-    pixivId: 16126035,  //pixiv id
+    pixivId: 16126035, //pixiv id
+    pixivProxy: 'https://api.imiku.me/pixivProxy.php?url={url}', // pixiv 图片代理地址, 如果没有代理服务器请填写 `https://api.pixiv.moe/v2/image/` 
     blogUrl: 'https://imiku.me', // 博客链接
     defaultCover: 'https://myblogpic.b0.upaiyun.com/2017/06/2017061621131297.jpg', // 文章默认头图
     blogSearchUrl: 'https://imiku.me/?s={keyword}', // 博客搜索链接, {keyword} 为关键字
@@ -43,6 +44,7 @@ export default {
     linksData: 'https://imiku.me/api/links.php', // 友情链接页面数据, 参考 https://imiku.me/api/links.php 格式
     linksUrl: 'https://imiku.me/links', // 友情链接页面地址
     bilibiliId: 21851788, // bilibili 用户ID
+    bilibiliProxy: 'https://tools.imiku.me/api/imgProxy.php?url={url}', // bilibili 图片代理地址
     githubUserName: 'Ice-Hazymoon',
     modules: { // 功能开关
         posts: true,
