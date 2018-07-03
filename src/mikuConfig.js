@@ -44,7 +44,7 @@ export default {
     linksData: 'https://imiku.me/api/links.php', // 友情链接页面数据, 参考 https://imiku.me/api/links.php 格式
     linksUrl: 'https://imiku.me/links', // 友情链接页面地址
     bilibiliId: 21851788, // bilibili 用户ID
-    bilibiliProxy: 'https://tools.imiku.me/api/imgProxy.php?url={url}', // bilibili 图片代理地址
+    bilibiliProxy: 'https://api.imiku.me/imgProxy.php?url={url}', // bilibili 图片代理地址
     githubUserName: 'Ice-Hazymoon',
     modules: { // 功能开关
         posts: true,
