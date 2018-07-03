@@ -2,7 +2,7 @@
 
 ## demo
 
-> [https://n.imiku.me](https://n.imiku.me)
+> [https://me.imiku.me](https://me.imiku.me)
 
 ## 使用
 
