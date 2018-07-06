@@ -8,5 +8,5 @@
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 module.exports = {
-    lintOnSave: false,
-}
+  lintOnSave: false
+};

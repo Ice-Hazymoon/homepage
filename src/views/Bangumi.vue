@@ -4,7 +4,7 @@
  * File Created: Friday, 22nd June 2018 3:34:02 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Tuesday, 3rd July 2018 10:40:35 am
+ * Last Modified: Friday, 6th July 2018 12:52:33 am
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 <template>
@@ -24,88 +24,68 @@
 </template>
 <script>
 export default {
-    data(){
-        return {
-            data: [],
-            loading: false
-        }
-    },
-    mounted(){
-        const d = this.$store.get('miku_bangumi');
-        if(d){
-            this.data = d;
-            this.loading = true;
-        }else{
-            this.$http.get('https://api.imjad.cn/bilibili/v2/?get=space&vmid='+this.mikuConfig.bilibiliId+'&pagesize=200').then(e=>{
-                this.data = e.data.data.season;
-                this.$store.set('miku_bangumi', this.data, new Date().getTime()+86400000);
-                this.loading = true;
-            }).catch(err=>{
-                alert('获取数据失败: '+err);
-            })
-        }
+  data() {
+    return {
+      data: [],
+      loading: false
+    };
+  },
+  mounted() {
+    const d = this.$store.get("miku_bangumi");
+    if (d) {
+      this.data = d;
+      this.loading = true;
+    } else {
+      this.$http
+        .get(
+          "https://api.imjad.cn/bilibili/v2/?get=space&vmid=" +
+            this.mikuConfig.bilibiliId +
+            "&pagesize=200"
+        )
+        .then(e => {
+          this.data = e.data.data.season;
+          this.$store.set(
+            "miku_bangumi",
+            this.data,
+            new Date().getTime() + 86400000
+          );
+          this.loading = true;
+        })
+        .catch(err => {
+          alert("获取数据失败: " + err);
+        });
     }
-}
+  },
+};
 </script>
 <style lang="scss" scoped>
-.bangumi{
-    display: inline-block;
-    vertical-align: top;
-    width: 600px;
-    margin: 0 30px;
-    box-sizing: border-box;
-    background-color: #fff;
-    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.09);
-    .title{
-        font-size: 20px;
-        padding: 20px 0 20px 20px;
-        letter-spacing: 1px;
-        font-family: Arial;
-        border-bottom: 1px solid #eceff2;
-        svg{
-            width: 18px;
-            height: 18px;
-            margin-left: 5px;
-            fill: #2b2f32;
-        }
-        .l{
-            display: inline-block;
-        }
-        .r{
-            display: inline-block;
-            float: right;
-            line-height: 23px;
-            font-size: 14px;
-            color: rgb(158, 158, 158);
-            margin-right: 20px;
-        }
+.bangumi {
+  .loading {
+    margin: 40px auto;
+  }
+  .bangumi-list {
+    li {
+      width: 200px;
+      height: 260px;
+      overflow: hidden;
+      padding: 15px;
+      display: inline-block;
+      box-sizing: border-box;
     }
-    .loading{
-        margin: 40px auto;
+    a {
+      cursor: pointer;
     }
-    .bangumi-list{
-        li{
-            width: 200px;
-            height: 260px;
-            overflow: hidden;
-            padding: 15px;
-            display: inline-block;
-            box-sizing: border-box;
-        }
-        a{
-            cursor: pointer;
-        }
-        .cover{
-            width: 100%;
-            border-radius: 5px;
-            box-shadow: 0 2px 15px 1px rgba($color: #000000, $alpha: .15);
-            border: 1px solid #f5f5f5;
-            transition: all .4s ease;
-            &:hover{
-                box-shadow: none;
-                transform: scale(1.1);
-            }
-        }
+    .cover {
+      width: 100%;
+      border-radius: 5px;
+      box-shadow: 0 2px 15px 1px rgba($color: #000000, $alpha: 0.15);
+      border: 1px solid #f5f5f5;
+      transition: all 0.4s ease;
+      &:hover {
+        box-shadow: none;
+        transform: scale(1.1);
+      }
     }
+  }
 }
 </style>

@@ -4,7 +4,7 @@
  * File Created: Thursday, 21st June 2018 2:59:26 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Monday, 2nd July 2018 4:46:03 pm
+ * Last Modified: Friday, 6th July 2018 12:18:47 am
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
  * Copyright 2017 - 2018
@@ -112,7 +112,6 @@ a {
     }
 }
 
-// 排版
 .scale-enter-active,
 .scale-leave-active {
     transition: all .5s ease;
@@ -130,6 +129,7 @@ a {
     opacity: .8;
 }
 
+// 排版
 .qrcode-enter-active,
 .qrcode-leave-active {
     transition: all 0.5s;
@@ -287,6 +287,8 @@ a {
         list-style: disc;
     }
     li {
+        list-style: disc;
+        margin-top: 5px;
         ul,
         ol {
             margin: .8em 0;

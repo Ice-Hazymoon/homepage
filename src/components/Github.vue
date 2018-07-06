@@ -4,7 +4,7 @@
  * File Created: Friday, 22nd June 2018 9:39:34 am
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Monday, 2nd July 2018 4:09:51 pm
+ * Last Modified: Friday, 6th July 2018 12:08:25 am
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 
@@ -32,98 +32,107 @@
 </template>
 <script>
 export default {
-    data(){
-        return {
-            data: [],
-            loading: false
-        }
-    },
-    mounted(){
-        const d = this.$store.get('miku_github');
-        if(d){
-            this.data = d;
-            this.loading = true;
-        }else{
-            this.$http.get('https://api.github.com/users/'+this.mikuConfig.githubUserName+'/repos').then(e=>{
-                this.data = e.data;
-                this.$store.set('miku_github', this.data, new Date().getTime()+86400000);
-                this.loading = true;
-            }).catch(err=>{
-                alert('获取数据失败: '+err);
-            })
-        }
+  data() {
+    return {
+      data: [],
+      loading: false
+    };
+  },
+  mounted() {
+    const d = this.$store.get("miku_github");
+    if (d) {
+      this.data = d;
+      this.loading = true;
+    } else {
+      this.$http
+        .get(
+          "https://api.github.com/users/" +
+            this.mikuConfig.githubUserName +
+            "/repos"
+        )
+        .then(e => {
+          this.data = e.data;
+          this.$store.set(
+            "miku_github",
+            this.data,
+            new Date().getTime() + this.mikuConfig.catchTime
+          );
+          this.loading = true;
+        })
+        .catch(err => {
+          alert("获取数据失败: " + err);
+        });
     }
-}
+  }
+};
 </script>
 <style lang="scss" scoped>
-.github{
-    display: inline-block;
-    vertical-align: top;
-    width: 230px;
-    background-color: #fff;
-    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.09);
-    box-sizing: border-box;
-    .title{
-        font-size: 20px;
-        letter-spacing: 1px;
-        font-family: Arial;
-        padding: 20px;
-        border-bottom: 1px solid #f5f5f5;
-        svg{
-            width: 18px;
-            height: 18px;
-            margin-left: 5px;
-            fill: #2b2f32;
-        }
+.github {
+  display: inline-block;
+  vertical-align: top;
+  width: 230px;
+  background-color: #fff;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.09);
+  box-sizing: border-box;
+  .title {
+    font-size: 20px;
+    letter-spacing: 1px;
+    font-family: Arial;
+    padding: 20px;
+    border-bottom: 1px solid #f5f5f5;
+    svg {
+      width: 18px;
+      height: 18px;
+      margin-left: 5px;
+      fill: #2b2f32;
     }
-    .loading{
-        margin: 40px auto;
+  }
+  .loading {
+    margin: 40px auto;
+  }
+  li {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f5f5f5;
+    .name {
+      color: rgb(56, 183, 234);
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 1.5;
+      text-decoration: none;
+      font-family: Arial;
     }
-    li{
-        padding: 15px 20px;
-        border-bottom: 1px solid #f5f5f5;
-        .name{
-            color: rgb(56, 183, 234);
-            font-size: 18px;
-            font-weight: bold;
-            line-height: 1.5;
-            text-decoration: none;
-            font-family: Arial;
-        }
-        .des{
-            font-style: italic;
-            color: #bbbbbb;
-            font-size: 12px;
-            margin: 6px 0;
-            line-height: 1.3;
-
-        }
-        .icon{
-            font-size: 12px;
-            .star{
-                margin-right: 60px;
-                color: #2b2f32;
-                text-decoration: none;
-                display: inline-flex;
-                align-items: center;
-            }
-            div{
-                display: inline-flex;
-                align-items: center;
-                transform: scale(.9);
-            }
-            svg{
-                display: inline-block;
-                width: 12px;
-                height: 12px;
-                margin-right: 5px;;
-                fill: rgb(36, 41, 46);
-            }
-            span{
-                vertical-align: middle;
-            }
-        }
+    .des {
+      font-style: italic;
+      color: #bbbbbb;
+      font-size: 12px;
+      margin: 6px 0;
+      line-height: 1.3;
     }
+    .icon {
+      font-size: 12px;
+      .star {
+        margin-right: 60px;
+        color: #2b2f32;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+      }
+      div {
+        display: inline-flex;
+        align-items: center;
+        transform: scale(0.9);
+      }
+      svg {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin-right: 5px;
+        fill: rgb(36, 41, 46);
+      }
+      span {
+        vertical-align: middle;
+      }
+    }
+  }
 }
 </style>
-

@@ -15,26 +15,25 @@
 </template>
 <script>
 export default {
-    props: {
-        content: {
-            type: String,
-            default: '内容'
-        },
-        title: {
-            type: String,
-            default: '标题'
-        }
+  props: {
+    content: {
+      type: String,
+      default: "内容"
+    },
+    title: {
+      type: String,
+      default: "标题"
     }
-}
+  }
+};
 </script>
 <style lang="scss">
-.neko{
-    .title{
-        padding: 15px 20px;
-        font-size: 20px;
-        font-family: "Microsoft YaHei";
-        border-bottom: 1px solid #eceff2;
-    }
+.neko {
+  .title {
+    padding: 15px 20px;
+    font-size: 20px;
+    font-family: "Microsoft YaHei";
+    border-bottom: 1px solid #eceff2;
+  }
 }
 </style>
-

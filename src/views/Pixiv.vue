@@ -4,7 +4,7 @@
  * File Created: Friday, 22nd June 2018 3:54:10 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Tuesday, 3rd July 2018 10:36:22 am
+ * Last Modified: Friday, 6th July 2018 12:17:22 am
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 <template>
@@ -59,271 +59,253 @@
     </div>
 </template>
 <script>
-import dateFormat from '../assets/js/dateFormat.js';
+import dateFormat from "../assets/js/dateFormat.js";
 Date.prototype.Format = dateFormat;
 
-import Zooming from 'zooming';
+import Zooming from "zooming";
 export default {
-    data(){
-        return {
-            loadImg: false,
-            data: null,
-            loading: false
-        }
+  data() {
+    return {
+      loadImg: false,
+      data: null,
+      loading: false
+    };
+  },
+  methods: {
+    handleDate(d) {
+      if (d) {
+        let date = new Date(d);
+        return date.Format("yyyy-MM-dd");
+      }
     },
-    methods: {
-        handleDate(d){
-            if(d){
-                let date = new Date(d)
-                return date.Format("yyyy-MM-dd");
-            }
+    // 图片放大效果
+    handleImg() {
+      new Zooming({
+        bgColor: "#fff",
+        bgOpacity: 0.8,
+        scaleBase: 0.8,
+        onImageLoading: () => {
+          this.loadImg = true;
         },
-        // 图片放大效果
-        handleImg(){
-            const zoomingLight = new Zooming({
-                bgColor: '#fff',
-                bgOpacity: .8,
-                scaleBase: .8,
-                onImageLoading: ()=>{
-                    this.loadImg = true;
-                },
-                onImageLoaded: (e)=>{
-                    this.loadImg = false;
-                }
-            }).listen('[data-action="zoom"]');
-        },
-        // 判断是多图还是单图, 如果是多图, 使用第一张图片作为大图
-        handleOriginalImage(item){
-            if(item.meta_single_page.original_image_url){
-                let imgUrl = item.meta_single_page.original_image_url;
-                return this.handleImgUrl(imgUrl);
-            }else{
-                let imgUrl = item.meta_pages[0].image_urls.large.replace(/c\/600x1200_90\//, '');
-                return this.handleImgUrl(imgUrl);
-            }
-        },
-        // 处理图片地址
-        handleImgUrl(url){
-            // 判断是否使用 pixiv.moe 作为图片代理, 如果使用了将删除 `https` 字段
-            if(this.mikuConfig.pixivProxy.indexOf('pixiv.moe') !== -1){
-                return this.mikuConfig.pixivProxy + url.replace(/https:\/\//, '');
-            }else{
-                return this.mikuConfig.pixivProxy.replace(/{url}/, url);
-            }
+        onImageLoaded: () => {
+          this.loadImg = false;
         }
+      }).listen('[data-action="zoom"]');
     },
-    created(){
-        const d = this.$store.get('miku_pixiv');
-        if(d){
-            this.data = d;
-            this.loading = true;
-            this.$nextTick(this.handleImg);
-        }else{
-            this.$http.get('https://api.imjad.cn/pixiv/v2/?type=favorite&id='+this.mikuConfig.pixivId).then(e=>{
-                this.data = e.data.illusts;
-                this.$store.set('miku_pixiv', e.data.illusts, new Date().getTime()+86400000);
-                this.loading = true;
-                this.$nextTick(this.handleImg);
-            }).catch(err=>{
-                alert('获取数据失败: '+err);
-            })
-        }
+    // 判断是多图还是单图, 如果是多图, 使用第一张图片作为大图
+    handleOriginalImage(item) {
+      if (item.meta_single_page.original_image_url) {
+        let imgUrl = item.meta_single_page.original_image_url;
+        return this.handleImgUrl(imgUrl);
+      } else {
+        let imgUrl = item.meta_pages[0].image_urls.large.replace(
+          /c\/600x1200_90\//,
+          ""
+        );
+        return this.handleImgUrl(imgUrl);
+      }
     },
-    computed: {
-        proxy(){
-            if(this.mikuConfig.pixivProxy.indexOf('pixiv.moe') !== -1){
-                return ''
-            }
-        }
+    // 处理图片地址
+    handleImgUrl(url) {
+      // 判断是否使用 pixiv.moe 作为图片代理, 如果使用了将删除 `https` 字段
+      if (this.mikuConfig.pixivProxy.indexOf("pixiv.moe") !== -1) {
+        return this.mikuConfig.pixivProxy + url.replace(/https:\/\//, "");
+      } else {
+        return this.mikuConfig.pixivProxy.replace(/{url}/, url);
+      }
     }
-}
+  },
+  created() {
+    const d = this.$store.get("miku_pixiv");
+    if (d) {
+      this.data = d;
+      this.loading = true;
+      this.$nextTick(this.handleImg);
+    } else {
+      this.$http
+        .get(
+          "https://api.imjad.cn/pixiv/v2/?type=favorite&id=" +
+            this.mikuConfig.pixivId
+        )
+        .then(e => {
+          this.data = e.data.illusts;
+          this.$store.set(
+            "miku_pixiv",
+            e.data.illusts,
+            new Date().getTime() + this.mikuConfig.catchTime
+          );
+          this.loading = true;
+          this.$nextTick(this.handleImg);
+        })
+        .catch(err => {
+          alert("获取数据失败: " + err);
+        });
+    }
+  },
+  computed: {
+    proxy() {
+      if (this.mikuConfig.pixivProxy.indexOf("pixiv.moe") !== -1) {
+        return "";
+      }
+    }
+  }
+};
 </script>
 <style lang="scss" scoped>
-.img-loading-enter-active, .img-loading-leave-active{
-    transition: .5s ease all;
+.img-loading-enter-active,
+.img-loading-leave-active {
+  transition: 0.5s ease all;
 }
-.img-loading-enter{
-    opacity: 0;
+.img-loading-enter,
+.img-loading-leave-to {
+  opacity: 0;
 }
-.img-loading-leave{
-    opacity: 1;
+.img-loading-leave,
+.img-loading-enter-to {
+  opacity: 1;
 }
-.img-loading-enter-to{
-    opacity: 1;
-}
-.img-loading-leave-to{
-    opacity: 0;
-}
-.pixiv{
-    display: inline-block;
-    vertical-align: top;
-    width: 600px;
-    margin: 0 30px;
-    box-sizing: border-box;
+.pixiv {
+  .img-loading {
+    z-index: 9999;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
     background-color: #fff;
-    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.09);
-    .img-loading{
-        z-index: 9999;
-        position: fixed;
-        left: 0;
+    .spinner {
+      position: relative;
+      margin: 0 auto;
+      margin-top: 200px;
+      width: 50px;
+      height: 40px;
+      text-align: center;
+      font-size: 10px;
+      div {
+        margin-right: 3px;
+      }
+      & > div {
+        background-color: rgb(32, 126, 194);
+        height: 100%;
+        width: 6px;
+        display: inline-block;
+        animation: sk-stretchdelay 1.2s infinite ease-in-out;
+      }
+      .rect2 {
+        animation-delay: -1.1s;
+      }
+      .rect3 {
+        animation-delay: -1s;
+      }
+      .rect4 {
+        animation-delay: -0.9s;
+      }
+      .rect5 {
+        animation-delay: -0.8s;
+      }
+    }
+    .text {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 20px;
+      letter-spacing: 1.5px;
+    }
+  }
+  .loading {
+    margin: 40px auto;
+  }
+  .grid {
+    position: relative;
+    width: 100%;
+    .grid-item {
+      width: (100% / 3);
+    }
+    .grid-item {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      box-sizing: border-box;
+      float: left;
+      &:hover {
+        .info {
+          opacity: 1;
+        }
+        &::after {
+          opacity: 0.7;
+        }
+      }
+      &::after {
+        content: "";
+        position: absolute;
         top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
-        background-color: #fff;
-        .spinner {
-            position: relative;
-            margin: 0 auto;
-            margin-top: 200px;
-            width: 50px;
-            height: 40px;
-            text-align: center;
-            font-size: 10px;
-            div{
-                margin-right: 3px;;
-            }
-            & > div {
-                background-color: rgb(32, 126, 194);
-                height: 100%;
-                width: 6px;
-                display: inline-block;
-                animation: sk-stretchdelay 1.2s infinite ease-in-out;
-            }
-            .rect2{
-                animation-delay: -1.1s;
-            }
-            .rect3{
-                animation-delay: -1.0s;
-            }
-            .rect4{
-                animation-delay: -0.9s;
-            }
-            .rect5{
-                animation-delay: -0.8s;
-            }
+        background-color: #000;
+        opacity: 0.7;
+        transition: opacity 0.4s ease;
+        pointer-events: none;
+        opacity: 0;
+      }
+      .info {
+        z-index: 2;
+        position: absolute;
+        bottom: 10px;
+        width: 200px - 40px;
+        left: 20px;
+        box-sizing: border-box;
+        color: #fff;
+        transition: opacity 0.4s ease;
+        opacity: 0;
+        a {
+          cursor: alias;
         }
-        .text{
-            font-size: 20px;
-            text-align: center;
-            margin-top: 20px;
-            letter-spacing: 1.5px;
+        svg {
+          width: 15px;
+          height: 15px;
+          fill: #fff;
+          margin-right: 5px;
+          &.like {
+            fill: rgb(255, 87, 87);
+          }
+          &.heading {
+            fill: rgb(83, 152, 255);
+          }
+          &.author {
+            fill: rgb(255, 167, 96);
+          }
+          &.date {
+            fill: rgb(147, 255, 132);
+          }
         }
+        [class^="p-"] {
+          line-height: 1.7;
+          font-size: 14px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+      img {
+        max-width: 100%;
+        display: block;
+      }
     }
-    .loading{
-        margin: 40px auto;
+    &:after {
+      content: "";
+      display: block;
+      clear: both;
     }
-    .title{
-        font-size: 20px;
-        padding: 20px 0 20px 20px;
-        letter-spacing: 1px;
-        font-family: Arial;
-        border-bottom: 1px solid #eceff2;
-        svg{
-            width: 18px;
-            height: 18px;
-            margin-left: 5px;
-            fill: #2b2f32;
-        }
-        .l{
-            display: inline-block;
-        }
-        .r{
-            display: inline-block;
-            float: right;
-            line-height: 23px;
-            font-size: 14px;
-            color: rgb(158, 158, 158);
-            margin-right: 20px;
-        }
-    }
-    .grid{
-        position: relative;
-        width: 100%;
-        .grid-item{
-            width: (100% / 3);
-        }
-        .grid-item{
-            position: relative;
-            width: 200px;
-            height: 200px;
-            box-sizing: border-box;
-            float: left;
-            &:hover{
-                .info{
-                    opacity: 1;
-                }
-                &::after{
-                    opacity: .7;
-                }
-            }
-            &::after{
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: #000;
-                opacity: .7;
-                transition: opacity .4s ease;
-                pointer-events: none;
-                opacity: 0;
-            }
-            .info{
-                z-index: 2;
-                position: absolute;
-                bottom: 10px;
-                width: 200px - 40px;
-                left: 20px;
-                box-sizing: border-box;
-                color: #fff;
-                transition: opacity .4s ease;
-                opacity: 0;
-                a{
-                    cursor: alias;
-                }
-                svg{
-                    width: 15px;
-                    height: 15px;
-                    fill: #fff;
-                    margin-right: 5px;
-                    &.like{
-                        fill: rgb(255, 87, 87);
-                    }
-                    &.heading{
-                        fill: rgb(83, 152, 255);
-                    }
-                    &.author{
-                        fill: rgb(255, 167, 96);
-                    }
-                    &.date{
-                        fill: rgb(147, 255, 132);
-                    }
-                }
-                [class^="p-"]{
-                    line-height: 1.7;
-                    font-size: 14px;
-                    overflow: hidden;
-                    text-overflow:ellipsis;
-                    white-space: nowrap;
-                }
-            }
-            img{
-                max-width: 100%;
-                display: block;
-            }
-        }
-        &:after{
-            content: '';
-            display: block;
-            clear: both;
-        }
-    }
+  }
 }
 @keyframes sk-stretchdelay {
-  0%, 40%, 100% { 
+  0%,
+  40%,
+  100% {
     transform: scaleY(0.4);
-  }  20% { 
-    transform: scaleY(1.0);
+  }
+  20% {
+    transform: scaleY(1);
   }
 }
 </style>

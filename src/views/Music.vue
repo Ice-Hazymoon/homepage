@@ -4,7 +4,7 @@
  * File Created: Friday, 22nd June 2018 3:56:00 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Monday, 2nd July 2018 3:27:22 pm
+ * Last Modified: Friday, 6th July 2018 12:44:57 am
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 <template>
@@ -20,97 +20,83 @@
     </div>
 </template>
 <script>
-import Aplayer from 'vue-aplayer';
+import Aplayer from "vue-aplayer";
 export default {
-    data(){
-        return {
-            musicList: new Array(),
-            playerLoad: false
-        }
-    },
-    methods: {
-        getLrc(){
-            let lrc = this.musicList.map((value, index)=>{
-                return this.$http.get('https://api.imjad.cn/cloudmusic/?type=lyric&id='+value.id);
-            })
-            this.$http.all(lrc).then(e=>{
-                this.musicList.forEach((el, index)=>{
-                    this.musicList[index].lrc = e[index].data.lrc.lyric;
-                    this.$store.set('miku_music', this.musicList, new Date().getTime()+86400000);
-                    this.playerLoad = true;
-                })
-            }).catch(err=>{
-                alert('数据获取失败, 请稍后重试');
-            })
-        }
-    },
-    mounted(){
-        const d = this.$store.get('miku_music');
-        if(d){
-            this.musicList = d;
+  data() {
+    return {
+      musicList: new Array(),
+      playerLoad: false
+    };
+  },
+  methods: {
+    getLrc() {
+      let lrc = this.musicList.map(value => {
+        return this.$http.get(
+          "https://api.imjad.cn/cloudmusic/?type=lyric&id=" + value.id
+        );
+      });
+      this.$http
+        .all(lrc)
+        .then(e => {
+          this.musicList.forEach((el, index) => {
+            this.musicList[index].lrc = e[index].data.lrc.lyric;
+            this.$store.set(
+              "miku_music",
+              this.musicList,
+              new Date().getTime() + this.mikuConfig.catchTime
+            );
             this.playerLoad = true;
-        }else{
-            this.$http.get('https://api.imjad.cn/cloudmusic/?type=playlist&id='+this.mikuConfig.playlistId).then(e=>{
-                this.musicList = e.data.playlist.tracks.map((value, index) => {
-                    return {
-                        id: value.id,
-                        title: value.name,
-                        artist: value.ar[0].name,
-                        src: 'https://api.imjad.cn/cloudmusic/?type=song&raw=true&id='+value.id,
-                        pic: value.al.picUrl,
-                        lrc: '[加载中...]\n[00:00.00]'
-                    }
-                })
-                this.getLrc();
-            }).catch(err=>{
-                alert('数据获取失败, 请稍后重试');
-            })
-        }
-    },
-    components: {
-        Aplayer
+          });
+        })
+        .catch(err => {
+          alert("数据获取失败, 请稍后重试" + err);
+        });
     }
-}
+  },
+  mounted() {
+    const d = this.$store.get("miku_music");
+    if (d) {
+      this.musicList = d;
+      this.playerLoad = true;
+    } else {
+      this.$http
+        .get(
+          "https://api.imjad.cn/cloudmusic/?type=playlist&id=" +
+            this.mikuConfig.playlistId
+        )
+        .then(e => {
+          this.musicList = e.data.playlist.tracks.map(value => {
+            return {
+              id: value.id,
+              title: value.name,
+              artist: value.ar[0].name,
+              src:
+                "https://api.imjad.cn/cloudmusic/?type=song&raw=true&id=" +
+                value.id,
+              pic: value.al.picUrl,
+              lrc: "[加载中...]\n[00:00.00]"
+            };
+          });
+          this.getLrc();
+        })
+        .catch(err => {
+          alert("数据获取失败, 请稍后重试" + err);
+        });
+    }
+  },
+  components: {
+    Aplayer
+  }
+};
 </script>
 <style lang="scss" scoped>
-.music{
-    display: inline-block;
-    vertical-align: top;
-    width: 600px;
-    margin: 0 30px;
-    box-sizing: border-box;
-    background-color: #fff;
-    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.09);
-    .title{
-        font-size: 20px;
-        padding: 20px 0 20px 20px;
-        letter-spacing: 1px;
-        font-family: Arial;
-        border-bottom: 1px solid #eceff2;
-        svg{
-            width: 18px;
-            height: 18px;
-            margin-left: 5px;
-            fill: #2b2f32;
-        }
-        .l{
-            display: inline-block;
-        }
-        .r{
-            display: inline-block;
-            float: right;
-            line-height: 23px;
-            font-size: 14px;
-            color: rgb(158, 158, 158);
-            margin-right: 20px;
-        }
-    }
-    .loading{
-        margin: 40px auto;
-    }
-    .aplayer{
-        margin: 0;
-        box-shadow: none;
-    }
+.music {
+  .loading {
+    margin: 40px auto;
+  }
+  .aplayer {
+    margin: 0;
+    box-shadow: none;
+  }
 }
 </style>
