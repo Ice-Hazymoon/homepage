@@ -4,12 +4,12 @@
  * File Created: Friday, 22nd June 2018 3:56:14 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Friday, 6th July 2018 12:17:39 am
+ * Last Modified: Friday, 6th July 2018 12:45:03 pm
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 <template>
     <div class="friend">
-        <ModuleTemplate :title="moduleData.title" :subTitle="moduleData.subTitle" :url="moduleData.url" :loading="loading">
+        <ModuleTemplate title="Friends" subTitle="永远的好朋友" :url="mikuConfig.linksUrl" :loading="loading">
           <ul class="list" v-if="loading" slot="body">
             <li @click="flipped" v-for="(item, index) in data" :key="index" :title="item.name">
                 <div class="front">
@@ -34,12 +34,7 @@ export default {
   data() {
     return {
       data: [],
-      loading: false,
-      moduleData: {
-        title: 'Friends',
-        subTitle: '永远的好朋友',
-        url: this.mikuConfig.linksUrl,
-      }
+      loading: false
     };
   },
   methods: {

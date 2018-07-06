@@ -4,12 +4,12 @@
  * File Created: Friday, 22nd June 2018 3:34:02 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Friday, 6th July 2018 12:52:33 am
+ * Last Modified: Friday, 6th July 2018 12:46:34 pm
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 <template>
     <div class="bangumi">
-        <ModuleTemplate :title="moduleData.title" :subTitle="moduleData.subTitle" :url="moduleData.url" :loading="loading">
+        <ModuleTemplate title="Bangumi" :subTitle="'共计追番: ' + data.count + ' 部  数据来自 Bilibili'" :url="'https://space.bilibili.com/' + mikuConfig.bilibiliId" :loading="loading">
           <ul v-if="loading" class="bangumi-list" slot="body">
               <li v-for="(item, index) in data.item" :key="index">
                   <a :href="item.uri" target="_blank"><img class="cover" :src="mikuConfig.bilibiliProxy.replace(/{url}/, item.cover)" :title="item.title"></a>
@@ -25,20 +25,8 @@ export default {
   data() {
     return {
       data: [],
-      loading: false,
-      moduleData: {
-        title: 'Bangumi',
-        subTitle: '共计追番: 0 部  数据来自 Bilibili',
-        url: 'https://space.bilibili.com/' + this.mikuConfig.bilibiliId,
-      }
+      loading: false
     };
-  },
-  watch: {
-    loading(val){
-      if(val){
-        this.moduleData.subTitle = '共计追番: ' + this.data.count + ' 部  数据来自 Bilibili';
-      }
-    }
   },
   mounted() {
     const d = this.$store.get("miku_bangumi");

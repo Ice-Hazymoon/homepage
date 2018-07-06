@@ -4,12 +4,12 @@
  * File Created: Friday, 22nd June 2018 9:42:36 am
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Friday, 6th July 2018 12:17:23 am
+ * Last Modified: Friday, 6th July 2018 12:43:20 pm
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 <template>
     <div class="post">
-        <ModuleTemplate :title="moduleData.title" :subTitle="moduleData.subTitle" :url="moduleData.url" :loading="loading">
+        <ModuleTemplate title="Posts" :subTitle="'最后更新于: ' +  this.lastDate" :url="mikuConfig.blogUrl" :loading="loading">
           <ul id="article" class="article-list" v-if="loading" slot="body">
               <li class="article" v-for="(item, index) in data" :key="index">
                   <div class="l">
@@ -37,12 +37,7 @@ export default {
   data() {
     return {
       data: [],
-      loading: false,
-      moduleData: {
-        title: 'Posts',
-        subTitle: '最后更新于: ' +  this.lastDate,
-        url: this.mikuConfig.blogUrl,
-      }
+      loading: false
     };
   },
   methods: {
@@ -105,6 +100,7 @@ export default {
   },
   computed: {
     lastDate() {
+      if(!this.data[0]) return ''
       let date = new Date(this.data[0].date);
       return date.Format("yyyy-MM-dd hh:mm:ss");
     }

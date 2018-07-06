@@ -4,12 +4,12 @@
  * File Created: Friday, 22nd June 2018 3:56:00 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Friday, 6th July 2018 12:09:36 pm
+ * Last Modified: Friday, 6th July 2018 12:47:37 pm
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 <template>
     <div class="music">
-        <ModuleTemplate :title="moduleData.title" :subTitle="moduleData.subTitle" :url="moduleData.url" :loading="playerLoad">
+        <ModuleTemplate title="Music" subTitle="数据来自 网易云音乐" :url="'http://music.163.com/#/user/home?id=' + mikuConfig.wyyyyId" :loading="playerLoad">
             <aplayer slot="body" v-if="playerLoad" showLrc :music="musicList[0]" :list="musicList" :shuffle="true" :mutex="true" :theme="'rgb(56, 183, 234)'"/>
         </ModuleTemplate>
     </div>
@@ -21,12 +21,7 @@ export default {
   data() {
     return {
       musicList: new Array(),
-      playerLoad: false,
-      moduleData: {
-        title: 'Music',
-        subTitle: '数据来自 网易云音乐',
-        url: 'http://music.163.com/#/user/home?id=' + this.mikuConfig.wyyyyId,
-      }
+      playerLoad: false
     };
   },
   methods: {
