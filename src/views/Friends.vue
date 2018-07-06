@@ -9,12 +9,8 @@
  */
 <template>
     <div class="friend">
-        <div class="title">
-            <div class="l">Friends <a :href="mikuConfig.linksUrl"><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="1950" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M972.8 716.8a51.2 51.2 0 0 0-51.2 51.2v102.4a51.2 51.2 0 0 1-51.2 51.2H51.2a51.2 51.2 0 0 0 0 102.4h819.2a153.6 153.6 0 0 0 153.6-153.6v-102.4a51.2 51.2 0 0 0-51.2-51.2zM204.8 716.8a51.2 51.2 0 0 0 51.2-51.2 358.4 358.4 0 0 1 358.4-358.4h81.408l-117.76 117.248A51.2 51.2 0 0 0 650.24 496.64l204.8-204.8a51.2 51.2 0 0 0 0-72.192l-204.8-204.8a51.2 51.2 0 0 0-72.192 72.192l117.76 117.76H614.4a460.8 460.8 0 0 0-460.8 460.8 51.2 51.2 0 0 0 51.2 51.2z" fill="" p-id="1951"></path></svg></a></div>
-            <div class="r">永远的好朋友</div>
-        </div>
-        <vue-loading v-if="!loading" class="loading" type="spiningDubbles" color="#38b7ea" :size="{ width: '50px', height: '50px' }"></vue-loading>
-        <ul class="list" v-if="loading">
+        <ModuleTemplate :title="moduleData.title" :subTitle="moduleData.subTitle" :url="moduleData.url" :loading="loading">
+          <ul class="list" v-if="loading" slot="body">
             <li @click="flipped" v-for="(item, index) in data" :key="index" :title="item.name">
                 <div class="front">
                     <img :src="item.image" :alt="item.name" class="avatar">
@@ -28,15 +24,22 @@
                     </div>
                 </div>
             </li>
-        </ul>
+          </ul>
+        </ModuleTemplate>
     </div>
 </template>
 <script>
+import ModuleTemplate from '../components/ModuleTemplate';
 export default {
   data() {
     return {
       data: [],
-      loading: false
+      loading: false,
+      moduleData: {
+        title: 'Friends',
+        subTitle: '永远的好朋友',
+        url: this.mikuConfig.linksUrl,
+      }
     };
   },
   methods: {
@@ -69,14 +72,14 @@ export default {
           alert("获取数据失败: " + err);
         });
     }
+  },
+  components: {
+    ModuleTemplate
   }
 };
 </script>
 <style lang="scss" scoped>
 .friend {
-  .loading {
-    margin: 40px auto;
-  }
   li {
     position: relative;
     width: 150px;

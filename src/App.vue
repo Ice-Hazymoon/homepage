@@ -19,11 +19,9 @@
         <Nav/>
         <div class="main">
             <InfoCard/>
-            <div class="main-body">
               <keep-alive>
-                <router-view/>
+                <router-view class="main-body"/>
               </keep-alive>
-            </div>
             <Github/>
         </div>
     </div>

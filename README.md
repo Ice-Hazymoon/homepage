@@ -20,3 +20,7 @@
 
 - 友情链接的接口需要使用 [REST API Link Manager](https://wordpress.org/plugins/rest-api-link-manager/) 插件, 暂时只支持
 - 文章模块暂时只支持wordpress
+
+## 自定义聚合
+
+- 待补充...
