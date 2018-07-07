@@ -4,7 +4,7 @@
  * File Created: Friday, 22nd June 2018 3:54:10 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Friday, 6th July 2018 12:43:56 pm
+ * Last Modified: Sunday, 8th July 2018 2:07:01 am
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 <template>
@@ -12,7 +12,7 @@
         <LoadingTemplate :load.sync="loadImg"/>
         <ModuleTemplate title="Pixiv" subTitle="数据来自 Pixiv" :url="'https://www.pixiv.net/member.php?id=' + mikuConfig.pixivId" :loading="loading">
           <ul class="grid" v-if="loading" slot="body">
-              <li class="grid-item" v-for="(item, index) in data" :key="index">
+              <li class="grid-item" v-for="(item, index) in data" :key="index" v-if="item.sanity_level<=mikuConfig.pixivSanityLevel">
                   <img data-action="zoom" 
                   class="a" 
                   :data-zooming-width="item.width" 

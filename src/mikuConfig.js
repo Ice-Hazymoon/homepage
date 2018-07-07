@@ -4,7 +4,7 @@
  * File Created: Monday, 2nd July 2018 3:15:56 pm
  * Author: Ice-Hazymoon (imiku.me@gmail.com)
  * -----
- * Last Modified: Friday, 6th July 2018 12:13:02 am
+ * Last Modified: Sunday, 8th July 2018 2:06:58 am
  * Modified By: Ice-Hazymoon (imiku.me@gmail.com)
  */
 export default {
@@ -20,6 +20,7 @@ export default {
   },
   pixivId: 16126035, //pixiv id
   pixivProxy: "https://api.imiku.me/pixivProxy.php?url={url}", // pixiv 图片代理地址, 如果没有代理服务器请填写 `https://api.pixiv.moe/v2/image/`
+  pixivSanityLevel: 5, // 分级, 默认为5
   blogUrl: "https://imiku.me", // 博客链接
   defaultCover: "https://myblogpic.b0.upaiyun.com/2018/07/2018070516124833.jpg", // 文章默认头图
   blogSearchUrl: "https://imiku.me/?s={keyword}", // 博客搜索链接, {keyword} 为关键字
