@@ -54,13 +54,15 @@ export default {
   bilibiliId: 21851788, // bilibili 用户ID
   bilibiliProxy: "https://api.imiku.me/imgProxy.php?url={url}", // bilibili 图片代理地址
   githubUserName: "Ice-Hazymoon",
+  twitterId: 'Ice_Hayzmoon',
   modules: {
     // 功能开关
     posts: true,
     pixiv: true,
     bangumi: true,
     music: true,
-    friends: true
+    friends: true,
+    twitter: true
   },
   home: "posts", // 首页默认模块, 请务必选择已开启的模块
   catchTime: 86400000 // 数据缓存的时间(毫秒)

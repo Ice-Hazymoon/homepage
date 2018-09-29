@@ -48,6 +48,7 @@
                 <li v-if="mikuConfig.modules.pixiv"><router-link to="/pixiv">PIXIV</router-link></li>
                 <li v-if="mikuConfig.modules.music"><router-link to="/music">MUSIC</router-link></li>
                 <li v-if="mikuConfig.modules.friends"><router-link to="/friends">FRIENDS</router-link></li>
+                <li v-if="mikuConfig.modules.twitter"><router-link to="/twitter">TWITTER</router-link></li>
             </ul>
         </div>
     </div>

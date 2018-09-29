@@ -9,6 +9,7 @@ const Bangumi = () => import('./views/Bangumi.vue');
 const Pixiv = () => import('./views/Pixiv.vue');
 const Music = () => import('./views/Music.vue');
 const Friends = () => import('./views/Friends.vue');
+const Twitter = () => import('./views/Twitter.vue');
 
 Vue.use(Router);
 
@@ -38,6 +39,11 @@ export default new Router({
       path: '/friends',
       name: 'Friends',
       component: Friends
+    },
+    {
+      path: '/twitter',
+      name: 'Twitter',
+      component: Twitter
     },
     {
       path: '*',
