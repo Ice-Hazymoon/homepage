@@ -12,7 +12,7 @@
         <ModuleTemplate title="Bangumi" :subTitle="'共计追番: ' + data.count + ' 部  数据来自 Bilibili'" :url="'https://space.bilibili.com/' + mikuConfig.bilibiliId" :loading="loading">
             <ul v-if="loading" class="bangumi-list" slot="body">
                 <li v-for="(item, index) in data.result" :key="index">
-                    <a :href="item.uri" target="_blank"><img class="cover" :src="mikuConfig.bilibiliProxy.replace(/{url}/, item.cover)" :title="item.title"></a>
+                    <a :href="item.share_url" target="_blank"><img class="cover" :src="mikuConfig.bilibiliProxy.replace(/{url}/, item.cover)" :title="item.title"></a>
                         <div class="info"></div>
                 </li>
             </ul>
