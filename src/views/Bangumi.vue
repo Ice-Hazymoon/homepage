@@ -10,21 +10,21 @@
 <template>
     <div class="bangumi">
         <ModuleTemplate title="Bangumi" :subTitle="'共计追番: ' + data.count + ' 部  数据来自 Bilibili'" :url="'https://space.bilibili.com/' + mikuConfig.bilibiliId" :loading="loading">
-          <ul v-if="loading" class="bangumi-list" slot="body">
-              <li v-for="(item, index) in data.item" :key="index">
-                  <a :href="item.uri" target="_blank"><img class="cover" :src="mikuConfig.bilibiliProxy.replace(/{url}/, item.cover)" :title="item.title"></a>
-                  <div class="info"></div>
-              </li>
-          </ul>
+            <ul v-if="loading" class="bangumi-list" slot="body">
+                <li v-for="(item, index) in data.result" :key="index">
+                    <a :href="item.uri" target="_blank"><img class="cover" :src="mikuConfig.bilibiliProxy.replace(/{url}/, item.cover)" :title="item.title"></a>
+                        <div class="info"></div>
+                </li>
+            </ul>
         </ModuleTemplate>
     </div>
 </template>
 <script>
-import ModuleTemplate from '../components/ModuleTemplate';
+import ModuleTemplate from "../components/ModuleTemplate";
 export default {
   data() {
     return {
-      data: [],
+      data: {},
       loading: false
     };
   },
@@ -36,12 +36,12 @@ export default {
     } else {
       this.$http
         .get(
-          "https://api.imjad.cn/bilibili/v2/?get=space&vmid=" +
-            this.mikuConfig.bilibiliId +
-            "&pagesize=200"
+          "https://api.imiku.me/proxyApi.php?http://space.bilibili.com/ajax/Bangumi/getList?page=1&pagesize=100&mid=" +
+            this.mikuConfig.bilibiliId
         )
         .then(e => {
-          this.data = e.data.data.season;
+          console.log(e.data.data);
+          this.data = e.data.data;
           this.$store.set(
             "miku_bangumi",
             this.data,
